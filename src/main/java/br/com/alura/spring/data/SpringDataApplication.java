@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.alura.spring.data.service.CrudCargoService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
 import br.com.alura.spring.data.service.CrudUnidadeTrabalho;
+import br.com.alura.spring.data.service.RelatoriosFuncionarioDinamico;
 import br.com.alura.spring.data.service.RelatoriosService;
 
 @SpringBootApplication
@@ -20,17 +21,20 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudFuncionarioService crudFuncionarioService;
 	private final CrudUnidadeTrabalho crudUnidadeTrabalho;
 	private final RelatoriosService relatoriosService;
+	private final RelatoriosFuncionarioDinamico relatoriosFuncionarioDinamico;
 
 	public SpringDataApplication(
 		CrudCargoService crudCargoService,
 		CrudFuncionarioService crudFuncionarioService,
 		CrudUnidadeTrabalho crudUnidadeTrabalho,
-		RelatoriosService relatoriosService
+		RelatoriosService relatoriosService,
+		RelatoriosFuncionarioDinamico relatoriosFuncionarioDinamico
 	) {
 		this.crudCargoService = crudCargoService;
 		this.crudFuncionarioService = crudFuncionarioService;
 		this.crudUnidadeTrabalho = crudUnidadeTrabalho;
 		this.relatoriosService = relatoriosService;
+		this.relatoriosFuncionarioDinamico = relatoriosFuncionarioDinamico;
 	}
 
 	public static void main(String[] args) {
@@ -48,6 +52,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println("2 - Funcionário");
 			System.out.println("3 - Unidade Trabalho");
 			System.out.println("4 - Relatorios");
+			System.out.println("5 - Relatorios dinamico");
 
 			int action = scanner.nextInt();
 
@@ -63,6 +68,9 @@ public class SpringDataApplication implements CommandLineRunner {
 					break;
 				case 4:
 				relatoriosService.inicial(scanner);
+					break;
+				case 5:
+					relatoriosFuncionarioDinamico.inicial(scanner);
 					break;
         default:
           system = false;
