@@ -1,5 +1,6 @@
 package br.com.alura.spring.data.service;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class CrudCargoService {
       System.out.println("0 - Sair");
       System.out.println("1 - Salvar");
       System.out.println("2 - Atualizar");
+      System.out.println("3 - Visualizar");
+      System.out.println("4 - Deletar");
 
       int action = scanner.nextInt();
 
@@ -33,12 +36,17 @@ public class CrudCargoService {
         case 2:
           atualizar(scanner);
           break;
+        case 3:
+          visualizar();
+          break;
+        case 4:
+          deletar(scanner);
+          break;
         default:
           system = false;
           break;
       }
     }
-    this.salvar(scanner);
   }
 
   private void salvar(Scanner scanner) {
@@ -67,5 +75,28 @@ public class CrudCargoService {
     cargoRepository.save(cargo);
 
     System.out.println("Cargo atualizado");
+  }
+
+  public void visualizar() {
+    Iterable<Cargo> cargos = cargoRepository.findAll();
+    cargos.forEach(cargo -> System.out.println(cargo));
+  }
+
+  public Optional<Cargo> buscarPorId(Scanner scanner) {
+    visualizar();
+    System.out.println("Id do cargo:");
+    Integer id = scanner.nextInt();
+    Optional<Cargo> cargo = cargoRepository.findById(id);
+
+    return cargo;
+  }
+
+  private void deletar(Scanner scanner) {
+    System.out.println("Id:");
+    int id = scanner.nextInt();
+
+    cargoRepository.deleteById(id);
+
+    System.out.println("Deletado!");
   }
 }
